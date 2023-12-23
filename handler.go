@@ -26,3 +26,26 @@ func handleGetTasks(w http.ResponseWriter, _ *http.Request) {
 	}
 	tmpl.ExecuteTemplate(w, "Base", data)
 }
+
+func handleCreateTasks(w http.ResponseWriter, r *http.Request) {
+	title := r.FormValue("title")
+	if title == "" {
+		tmpl.ExecuteTemplate(w, "Form", nil)
+		return
+	}
+	_, err := insertTask(title)
+	if err != nil {
+		log.Printf("Error inserting Task %v", err)
+		return
+	}
+
+	count, err := fetchCount()
+	if err != nil {
+		log.Printf("Error fetching Count %v", err)
+		return
+	}
+
+	w.WriteHeader(http.StatusCreated)
+	tmpl.ExecuteTemplate(w, "Form", nil)
+	tmpl.ExecuteTemplate(w, "totalCount", map[string]any{"Count": count, "SwapOOB": true})
+}

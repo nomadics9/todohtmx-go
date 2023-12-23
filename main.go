@@ -34,6 +34,6 @@ func server() {
 	fs := http.FileServer(http.Dir("static"))
 	r.Handle("/static/*", http.StripPrefix("/static/", fs))
 	r.Get("/", handleGetTasks)
-
+	r.Post("/tasks", handleCreateTasks)
 	http.ListenAndServe("localhost:3000", r)
 }

@@ -25,7 +25,7 @@ func fetchTasks() ([]Item, error) {
 	defer rows.Close()
 	for rows.Next() {
 		item := Item{}
-		err := rows.Scan(&item.ID, &item.Title, item.Completed)
+		err := rows.Scan(&item.ID, &item.Title, &item.Completed)
 		if err != nil {
 			return []Item{}, err
 		}
