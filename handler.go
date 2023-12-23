@@ -47,5 +47,5 @@ func handleCreateTasks(w http.ResponseWriter, r *http.Request) {
 
 	w.WriteHeader(http.StatusCreated)
 	tmpl.ExecuteTemplate(w, "Form", nil)
-	tmpl.ExecuteTemplate(w, "totalCount", map[string]any{"Count": count, "SwapOOB": true})
+	tmpl.ExecuteTemplate(w, "TotalCount", map[string]any{"Count": count, "SwapOOB": true})
 }
