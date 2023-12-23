@@ -137,3 +137,12 @@ func orderTasks(ctx context.Context, values []int) error {
 	}
 	return nil
 }
+
+func toggleTask(ID int) (Item, error) {
+	var item Item
+	err := DB.QueryRow("update tasks set completed = case when completed = 1 then 0 else 1 end where id = (?) returning id, title, completed", ID).Scan(&item.ID, &item.Title, &item.Completed)
+	if err != nil {
+		return Item{}, err
+	}
+	return item, nil
+}

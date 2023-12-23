@@ -35,5 +35,9 @@ func server() {
 	r.Handle("/static/*", http.StripPrefix("/static/", fs))
 	r.Get("/", handleGetTasks)
 	r.Post("/tasks", handleCreateTasks)
+	r.Put("/tasks/{id}/toggle", handleToggleTask)
+	r.Delete("/tasks/{id}", handleDeleteTask)
+	r.Get("/tasks/{id}/edit", handleEditTask)
+	r.Put("/tasks/{id}", handleUpdateTask)
 	http.ListenAndServe("localhost:3000", r)
 }
